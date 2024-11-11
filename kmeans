@@ -1,0 +1,28 @@
+#kmeansclustering
+
+import numpy as np
+data=np.array([2,3,4,10,11,12,20,25,30])
+m1=4
+m2=12
+def k_means_clustering (data,m1,m2,max_iterations=100):
+  for _ in range (max_iterations):
+    clusters = {1:[],2: []}
+    for point in data :
+      distance_to_m1 = abs(point - m1)
+      distance_to_m2 = abs(point - m2)
+      if distance_to_m1 > distance_to_m2 :
+        clusters[1].append(point)
+      else:
+        clusters[2].append(point)
+    new_m1 = np.mean(clusters[1]) if clusters[1] else m1
+    new_m2 = np.mean(clusters[2]) if clusters[2] else m2
+    if new_m1 == m1 and new_m2 == m2 :
+      break
+    m1 , m2 = new_m1 , new_m2
+  return clusters , m1 , m2
+clusters , final_m1, final_m2 = k_means_clustering(data , m1 , m2)
+print("Final Clusters:")
+print("Cluster 1:", clusters[1])
+print("Cluster 2:", clusters[2])
+print("Final mean 1:", final_m1)
+print("Final mean 1:", final_m2)
